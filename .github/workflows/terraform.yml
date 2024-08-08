@@ -5,8 +5,8 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - terraform/
-      - .github/
+      - terraform/**
+      - .github/**
 
 jobs:
   build-dev:
