@@ -85,7 +85,7 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         name: terra-plan
-        path: ./tf.plan
+        path: ./terraform/tf.plan
 
     - name: CD
       id: cd
@@ -93,4 +93,4 @@ jobs:
 
     - name: Terraform Apply
       id: apply
-      run: terraform apply ./terraform/tf.plan
+      run: terraform apply tf.plan
