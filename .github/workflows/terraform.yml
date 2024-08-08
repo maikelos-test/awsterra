@@ -2,7 +2,8 @@ name: Deploy Infrastructure
 
 on: 
   workflow_dispatch:
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build-dev:
@@ -30,7 +31,6 @@ jobs:
     - name: Terraform fmt
       id: fmt
       run: terraform fmt -check
-      continue-on-error: true
     
     - name: Terraform Init
       id: init
@@ -46,10 +46,6 @@ jobs:
 
     - run: echo ${{ steps.plan.outputs.exitcode }}
 
-    - name: CD
-      id: cd
-      run: ls -l .*
-
     - uses: actions/upload-artifact@v4
       with:
         name: terra-plan
@@ -59,7 +55,8 @@ jobs:
     needs: build-dev
     name: Deploy dev plan
     runs-on: ubuntu-latest
-    environment: build
+    if: github.event_name == 'pull_request'
+    environment: dev
     env:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_USER_SECRET }}
       AWS_ACCESS_KEY_ID: AKIAQLSIVCPPFRLVIGQB
