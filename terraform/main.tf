@@ -12,8 +12,6 @@ terraform {
     bucket     = "m272-terraformstate"
     key        = "m272-terrastate"
     region     = "eu-north-1"
-    access_key = "AKIAQLSIVCPPFRLVIGQB"
-    secret_key = ""
     dynamodb_table = "m272-terra-state"
   }
 
@@ -21,8 +19,6 @@ terraform {
 
 provider "aws" {
   region     = "eu-north-1"
-  access_key = "AKIAQLSIVCPPFRLVIGQB"
-  secret_key = ""
 }
 
 resource "aws_s3_bucket" "this" {
