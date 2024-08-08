@@ -82,16 +82,11 @@ jobs:
       id: init
       run: terraform init
 
+    # Downloads and extracts the artifact into the directory below
     - uses: actions/download-artifact@v4
       with:
         name: terra-plan
         path: ./terraform/
-
-    - name: CD
-      id: cd
-      run: |
-        pwd
-        ls -l
 
     - name: Terraform Apply
       id: apply
