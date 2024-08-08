@@ -59,7 +59,7 @@ jobs:
     needs: build-dev
     name: Deploy dev plan
     runs-on: ubuntu-latest
-    environment: build
+    environment: dev
     env:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_USER_SECRET }}
       AWS_ACCESS_KEY_ID: AKIAQLSIVCPPFRLVIGQB
