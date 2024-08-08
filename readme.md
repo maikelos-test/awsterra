@@ -10,3 +10,4 @@ https://github.com/aws-actions/configure-aws-credentials
         role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
         role-duration-seconds: 1200
         role-session-name: MySessionName
+        
