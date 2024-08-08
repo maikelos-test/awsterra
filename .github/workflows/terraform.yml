@@ -89,7 +89,7 @@ jobs:
 
     - name: CD
       id: cd
-      run: ls -l .*
+      run: ls -l .* && ls -l tf.plan && ls -l terraform
 
     - name: Terraform Apply
       id: apply
