@@ -40,14 +40,55 @@ jobs:
     
     - name: Terraform Validate
       id: validate
-      run: terraform validate -no-color
+      run: terraform validate
     
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color
-      continue-on-error: true
-      
-    - run: echo ${{ steps.plan.outputs.stdout }}
-    - run: echo ${{ steps.plan.outputs.stderr }}
-    - run: echo ${{ steps.plan.outcome }}
+      run: terraform plan -o tf.plan
+
     - run: echo ${{ steps.plan.outputs.exitcode }}
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: terra-plan
+        path: ./tf.plan
+
+  deploy-dev:
+    needs: build-dev
+    name: Deploy Site
+    runs-on: ubuntu-latest
+    environment: build
+    env:
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_USER_SECRET }}
+      AWS_ACCESS_KEY_ID: AKIAQLSIVCPPFRLVIGQB
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 20
+
+    - name: Terraform Setup
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.9.3"
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: terra-plan
+        path: ./tf.plan
+
+    - name: CD
+      id: cd
+      run: ls -l .*
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply tf.plan
