@@ -59,7 +59,7 @@ jobs:
     needs: build-dev
     name: Deploy dev plan
     runs-on: ubuntu-latest
-    environment: dev
+    environment: build
     env:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_USER_SECRET }}
       AWS_ACCESS_KEY_ID: AKIAQLSIVCPPFRLVIGQB
@@ -89,7 +89,9 @@ jobs:
 
     - name: CD
       id: cd
-      run: ls -l .* && ls -l tf.plan && ls -l terraform
+      run: |
+        pwd
+        ls -l
 
     - name: Terraform Apply
       id: apply
