@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build-dev:
-    name: Deploy Site
+    name: Build dev plan
     runs-on: ubuntu-latest
     environment: build
     env:
@@ -44,7 +44,7 @@ jobs:
     
     - name: Terraform Plan
       id: plan
-      run: terraform plan -o tf.plan
+      run: terraform plan --out tf.plan
 
     - run: echo ${{ steps.plan.outputs.exitcode }}
 
@@ -55,7 +55,7 @@ jobs:
 
   deploy-dev:
     needs: build-dev
-    name: Deploy Site
+    name: Deploy dev plan
     runs-on: ubuntu-latest
     environment: build
     env:
