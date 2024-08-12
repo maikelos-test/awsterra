@@ -13,6 +13,7 @@ jobs:
     name: Build dev plan
     runs-on: ubuntu-latest
     environment: build
+    # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs
     permissions: write-all
     env:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_USER_SECRET }}
@@ -28,10 +29,10 @@ jobs:
         fetch-depth: 20
 
     - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v1.7.0
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: arn:aws:iam::024848438238:oidc-provider/token.actions.githubusercontent.com #change to reflect your IAM role’s ARN
-        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        audience: sts.amazonaws.com.cn
         aws-region: eu-north-1
       # Hello from AWS: WhoAmI
     - name: Sts GetCallerIdentity
