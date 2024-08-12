@@ -32,7 +32,7 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: arn:aws:iam::024848438238:role/GithubFullAccess #change to reflect your IAM role’s ARN
-        audience: sts.amazonaws.com.cn
+        audience: sts.amazonaws.com
         aws-region: eu-north-1
       # Hello from AWS: WhoAmI
     - name: Sts GetCallerIdentity

@@ -13,4 +13,6 @@ https://github.com/aws-actions/configure-aws-credentials
 
 
 Make use of OIDC
-Chagne
+
+Setup github OIDC 
+https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
