@@ -15,9 +15,6 @@ jobs:
     environment: build
     # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/assigning-permissions-to-jobs
     permissions: write-all
-    # env:
-    #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_USER_SECRET }}
-    #   AWS_ACCESS_KEY_ID: AKIAQLSIVCPPFRLVIGQB
     defaults:
       run:
         working-directory: ./terraform
@@ -28,16 +25,16 @@ jobs:
       with:
         fetch-depth: 20
 
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: arn:aws:iam::024848438238:role/GithubFullAccess #change to reflect your IAM role’s ARN
-        audience: sts.amazonaws.com
-        aws-region: eu-north-1
-      # Hello from AWS: WhoAmI
-    - name: Sts GetCallerIdentity
-      run: |
-        aws sts get-caller-identity
+    # - name: configure aws credentials
+    #   uses: aws-actions/configure-aws-credentials@v4
+    #   with:
+    #     role-to-assume: arn:aws:iam::024848438238:role/GithubFullAccess #change to reflect your IAM role’s ARN
+    #     audience: sts.amazonaws.com
+    #     aws-region: eu-north-1
+    #   # Hello from AWS: WhoAmI
+    # - name: Sts GetCallerIdentity
+    #   run: |
+    #     aws sts get-caller-identity
 
     - name: Terraform Setup
       uses: hashicorp/setup-terraform@v3
