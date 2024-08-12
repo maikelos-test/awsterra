@@ -31,7 +31,7 @@ jobs:
     - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        role-to-assume: arn:aws:iam::024848438238:oidc-provider/token.actions.githubusercontent.com #change to reflect your IAM role’s ARN
+        role-to-assume: arn:aws:iam::024848438238:role/GithubFullAccess #change to reflect your IAM role’s ARN
         audience: sts.amazonaws.com.cn
         aws-region: eu-north-1
       # Hello from AWS: WhoAmI
