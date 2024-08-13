@@ -168,6 +168,9 @@ jobs:
     - name: Get PR commit
       run:  echo "PR_COMMIT=$(git log -1 --format="%H" HEAD^2)" >> $GITHUB_ENV
 
+    - name: Show logs
+      run:  echi git log
+
     - name: Download artifact
       if: github.event_name == 'push'
       id: download-artifact
