@@ -26,7 +26,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
-        fetch-depth: 20
+        fetch-depth: 0
     
         # print the %H hash of the ^2 second parent of the HEAD i.e. current commit
     - name: Get PR commit
@@ -146,7 +146,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
-        fetch-depth: 20
+        fetch-depth: 0
 
     - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -171,7 +171,12 @@ jobs:
         name: terra-plan
         path: ./terraform/
 
-
+    # print the %H hash of the ^2 second parent of the HEAD i.e. current commit
+    - name: Get PR commit
+      run:  echo "PR_COMMIT=$(git log -1 --format="%H" HEAD^2)" >> $GITHUB_ENV
+    
+    - name: Show logs
+      run:  git log && echo $PR_COMMIT
 
     - name: Download artifact
       if: github.event_name == 'push'
@@ -179,7 +184,7 @@ jobs:
       uses: dawidd6/action-download-artifact@v6
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
-        commit: ${{ env.VARIABLE_NAME }}.
+        commit: ${{ env.PR_COMMIT }}.
         path: ./terraform/
         if_no_artifact_found: fail
 
