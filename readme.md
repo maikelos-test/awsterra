@@ -16,3 +16,5 @@ Make use of OIDC
 
 Setup github OIDC 
 https://aws.amazon.com/blogs/security/use-iam-roles-to-connect-github-actions-to-actions-in-aws/
+
+Role chaining isn't really supported by Terraform

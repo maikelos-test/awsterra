@@ -25,16 +25,17 @@ jobs:
       with:
         fetch-depth: 20
 
-    # - name: configure aws credentials
-    #   uses: aws-actions/configure-aws-credentials@v4
-    #   with:
-    #     role-to-assume: arn:aws:iam::024848438238:role/GithubFullAccess #change to reflect your IAM role’s ARN
-    #     audience: sts.amazonaws.com
-    #     aws-region: eu-north-1
-    #   # Hello from AWS: WhoAmI
-    # - name: Sts GetCallerIdentity
-    #   run: |
-    #     aws sts get-caller-identity
+    # Exports credentials as session environment variables for other actions to use
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::024848438238:role/GithubFullAccess #change to reflect your IAM role’s ARN
+        audience: sts.amazonaws.com
+        aws-region: eu-north-1
+
+    - name: Verify IAM role
+      run: |
+        aws sts get-caller-identity
 
     - name: Terraform Setup
       uses: hashicorp/setup-terraform@v3
@@ -56,8 +57,6 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: terraform plan --out tf.plan
-
-    - run: echo ${{ steps.plan.outputs.exitcode }}
 
     - uses: actions/upload-artifact@v4
       with:
