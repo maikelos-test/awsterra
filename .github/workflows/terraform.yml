@@ -185,6 +185,10 @@ jobs:
         commit: ${{ env.PR_COMMIT }}
         path: ./terraform/
         if_no_artifact_found: fail
+    
+    - name: Move plan up
+      if: github.event_name == 'push'
+      run:  mv ./terra-plan/tf.plan ./tf.plan
 
     - name: Terraform Apply
       id: apply
