@@ -175,6 +175,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         commit: $PR_COMMIT
         path: ./terraform/
+        if_no_artifact_found: fail
 
     - name: Terraform Apply
       id: apply
