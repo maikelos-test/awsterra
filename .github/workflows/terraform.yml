@@ -130,6 +130,7 @@ jobs:
     runs-on: ubuntu-latest
     if: always() && !failure() && !cancelled() && github.event_name != 'pull_request'
     environment: dev
+    permissions: write-all
     defaults:
       run:
         working-directory: ./terraform
